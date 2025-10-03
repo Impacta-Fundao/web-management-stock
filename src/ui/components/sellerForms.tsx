@@ -3,7 +3,7 @@
 import { useState } from "react";
 
 import { SellerPropsModel } from "@/models/seller/types/seller-props-model";
-import { useSellerModelPost } from "@/services/sellerService";
+import { postSeller } from "@/models/seller/seller-model";
 
 export default function SellerForm() {
   const [loading, setLoading] = useState(false);
@@ -23,10 +23,9 @@ export default function SellerForm() {
     setMessage("");
 
     try {
-      const newSeller = await useSellerModelPost(formData);
+      const newSeller = await postSeller(formData);
       setMessage(`✅ Seller criado com sucesso! ID: ${newSeller.id}`);
 
-      // Limpar formulário
       setFormData({
         nome: "",
         email: "",
@@ -67,7 +66,6 @@ export default function SellerForm() {
       </h2>
 
       <form onSubmit={handleSubmit} className="space-y-6">
-        {/* Campo Nome */}
         <div>
           <label
             htmlFor="nome"
@@ -87,7 +85,6 @@ export default function SellerForm() {
           />
         </div>
 
-        {/* Campo Email */}
         <div>
           <label
             htmlFor="email"
@@ -107,7 +104,6 @@ export default function SellerForm() {
           />
         </div>
 
-        {/* Campo CNPJ */}
         <div>
           <label
             htmlFor="cnpj"
@@ -128,7 +124,6 @@ export default function SellerForm() {
           />
         </div>
 
-        {/* Campo Celular */}
         <div>
           <label
             htmlFor="celular"
@@ -148,7 +143,7 @@ export default function SellerForm() {
           />
         </div>
 
-        {/* Campo Senha */}
+
         <div>
           <label
             htmlFor="senha"
@@ -169,7 +164,7 @@ export default function SellerForm() {
           />
         </div>
 
-        {/* Campo Status */}
+
         <div>
           <label
             htmlFor="status"
@@ -194,7 +189,7 @@ export default function SellerForm() {
           </select>
         </div>
 
-        {/* Botão Submit */}
+
         <button
           type="submit"
           disabled={loading}
@@ -203,7 +198,7 @@ export default function SellerForm() {
           {loading ? "⏳ Cadastrando..." : "📝 Cadastrar Seller"}
         </button>
 
-        {/* Mensagem de feedback */}
+
         {message && (
           <div
             className={`p-4 rounded-md ${

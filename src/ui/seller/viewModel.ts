@@ -179,7 +179,7 @@ export default function useSellerModel() {
     setValue("email", sellerToEdit.email || "");
     setValue("cnpj", sellerToEdit.cnpj || "");
     setValue("status", sellerToEdit.status || false);
-    setValue("senha", ""); // Não preenche senha por segurança
+    setValue("senha", "");
   }, [seller, setValue]);
 
   const handleCancelEdit = useCallback(() => {

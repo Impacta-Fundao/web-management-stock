@@ -36,7 +36,7 @@ export interface SellerViewProps {
   ) => Promise<SellerPropsModel>;
   handleDelete: (id: number) => Promise<void>;
   handleCancelEdit: () => void;
-  handleEdit: (id: number) => void; // ← REMOVE async
+  handleEdit: (id: number) => void;
   toggleUpdateMode: () => void;
 }
 

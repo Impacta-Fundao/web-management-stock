@@ -1,8 +1,9 @@
 "use client";
 
-import SellerPage from "@/ui/seller";
+import LoginPage from "@/ui/login";
 
-export default function SellerMain() {
-return <SellerPage/>
+
+export default function Login() {
+return <LoginPage/>
 }
 
