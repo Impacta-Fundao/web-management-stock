@@ -13,7 +13,7 @@ export async function getSellers(): Promise<SellerPropsModel[]> {
         "Content-Type": "application/json",
       },
       cache: "no-cache",
-    });
+    }); 
     if (!response.ok) {
       throw new Error(`Erro na requisição: ${response.status}`);
     }
