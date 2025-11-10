@@ -11,12 +11,14 @@ export default function LoginPage() {
     handleSubmit,
     register,
     onSubmiteRegister,
+    message,
+    setValue,
     errors,
-    message
   } = useLoginModel();
   return (
     <LoginView
-    message={message}
+      setValue={setValue}
+      message={message}
       errorsLogin={errosLogin}
       onSubmitRegister={onSubmiteRegister}
       register={register}
@@ -25,7 +27,7 @@ export default function LoginPage() {
       handleSubmit={handleSubmit}
       onSubmitSignIn={onSubmitSignIn}
       loading={loading}
-      errors={errosLogin}
+      errors={errors}
     />
   );
 }

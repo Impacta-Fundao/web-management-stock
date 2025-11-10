@@ -5,6 +5,5 @@ interface SellerViewProps {
 }
 
 export default function SellerView({seller}:SellerViewProps){
-  console.log(seller)
   return <div></div>
 }

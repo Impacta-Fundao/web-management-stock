@@ -24,7 +24,7 @@ interface VerifyAccountProps {
   errors: FieldErrors<VerifyCode>;
   onSubmitVerify: (data: VerifyCode) => Promise<void>;
   message: string | null;
-  setValue:  UseFormSetValue<VerifyCode>; 
+  setValue: UseFormSetValue<VerifyCode>;
 }
 
 export default function VerifyAccountView({
@@ -36,12 +36,9 @@ export default function VerifyAccountView({
   onSubmitVerify,
   register,
   message,
-  setValue
+  setValue,
 }: VerifyAccountProps) {
-  
   const [otpValue, setOtpValue] = useState("");
-
- 
 
   const handleOtpChange = (value: string) => {
     setOtpValue(value);
@@ -91,7 +88,7 @@ export default function VerifyAccountView({
                   <InputOTPSlot index={3} />
                 </InputOTPGroup>
               </InputOTP>
-             
+
               <input
                 type="hidden"
                 {...register("codigo", {

@@ -8,7 +8,6 @@ interface BackendLoginResponse {
 }
 
 interface CustomLoginResponse {
-  // token: string;
   seller_id: string;
   nome: string;
   message: string;
@@ -41,7 +40,6 @@ export default async function handler(
 
       res.setHeader('Set-Cookie', `auth_token=${backendData.access_token}; Path=/; HttpOnly; SameSite=Strict; Max-Age${24 * 60 * 60}; Secure=${process.env.NODE_ENV === 'production'}`)
       const responseData: CustomLoginResponse = {
-        // token: backendData.access_token,
         seller_id: backendData.seller_id,
         message: backendData.message,
         nome: backendData.nome,

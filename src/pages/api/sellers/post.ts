@@ -10,21 +10,14 @@ export default async function handler(
 
   const { email, nome, cnpj, celular, senha } = req.body;
 
-  // Validação básica dos campos
   if (!email || !nome || !cnpj || !celular || !senha) {
     return res.status(400).json({
       message: "Todos os campos são obrigatórios",
+      data: { email, celular, cnpj, senha, nome },
     });
   }
 
   try {
-    console.log("📤 Enviando para backend:", {
-      email,
-      nome,
-      cnpj: cnpj.substring(0, 6) + "...", // Log parcial por segurança
-      celular: celular.substring(0, 5) + "...",
-    });
-
     const response = await fetch(`${process.env.API_BASE_URL}/mercados`, {
       method: "POST",
       headers: {
@@ -39,14 +32,9 @@ export default async function handler(
       }),
     });
 
-    console.log("📥 Resposta do backend - Status:", response.status);
-
-    // Captura a resposta independente do status
     const responseData = await response.json();
-    console.log("📥 Resposta do backend - Data:", responseData);
 
     if (!response.ok) {
-      // Retorna a mensagem de erro específica do backend
       throw new Error(
         responseData.message || `Erro ${response.status} no backend`
       );

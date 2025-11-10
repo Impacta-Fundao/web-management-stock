@@ -21,6 +21,7 @@ export default function useLoginModel() {
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
   } = useForm<FormRegisterSeller>();
 
@@ -38,7 +39,6 @@ export default function useLoginModel() {
         throw new Error(`Erro ${resp.status}`);
       }
       const result = await resp.json();
-      console.log(result);
       return result;
     } catch (error) {
       const err = error as Error;
@@ -81,6 +81,9 @@ export default function useLoginModel() {
 
   const postSeller = useCallback(
     async ({ celular, cnpj, email, nome, senha }: FormRegisterSeller) => {
+      const rawCNPJ = cnpj?.replace(/\D/g, "");
+      const rawPhone = celular.replace(/\D/g, "");
+
       try {
         const data = await fetch("api/sellers/post", {
           method: "POST",
@@ -89,8 +92,8 @@ export default function useLoginModel() {
           },
           body: JSON.stringify({
             email,
-            cnpj,
-            celular,
+            celular: rawPhone,
+            cnpj: rawCNPJ,
             nome,
             senha,
           }),
@@ -104,10 +107,8 @@ export default function useLoginModel() {
         }
         const result = await data.json();
         if (typeof window !== "undefined") {
-          localStorage.setItem("celular_para_verificar", celular);
-          console.log("Celular salvo no localStorage:", celular);
+          localStorage.setItem("celular_para_verificar", rawPhone);
         }
-
         return result;
       } catch (error) {
         console.error("Erro no postSeller:", error);
@@ -129,5 +130,6 @@ export default function useLoginModel() {
     register,
     handleSubmit,
     message,
+    setValue,
   };
 }

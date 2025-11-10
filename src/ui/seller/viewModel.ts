@@ -1,9 +1,8 @@
-// useSellerModel.ts - CORRIGIDO
-import FormRegisterSeller, {
+import  {
   SellerPropsModel,
 } from "@/models/seller/types/seller-props-model";
 import { useRouter } from "next/navigation";
-import { useCallback, useState, useEffect } from "react"; // ← Adicione useEffect
+import { useCallback, useState, useEffect } from "react";
 
 export default function useSellerModel() {
   const router = useRouter();
@@ -11,7 +10,6 @@ export default function useSellerModel() {
   const [error, setError] = useState<string | null>(null);
   const [seller, setSeller] = useState<Array<SellerPropsModel>>([]);
 
-  // Adicione useEffect para carregar os sellers automaticamente
   useEffect(() => {
     getSellers();
   }, []);
@@ -32,7 +30,7 @@ export default function useSellerModel() {
         });
 
         if (resp.status === 401) {
-          router.push("/"); // ← Mude para /login
+          router.push("/");
           return;
         }
 
@@ -57,7 +55,7 @@ export default function useSellerModel() {
     try {
       const data = await apiRequest("/api/sellers");
       setSeller(data.data);
-      return data.data; // ← Retorne data.data, não seller
+      return data.data;
     } catch (error) {
       console.error("Erro ao carregar sellers:", error);
       return [];

@@ -22,17 +22,15 @@ export default function VerifyCodeModel() {
       const celularSalvo = localStorage.getItem("celular_para_verificar");
       if (celularSalvo) {
         setCelular(celularSalvo);
-        console.log("Celular recuperado:", celularSalvo);
       } else {
         console.warn("Nenhum celular encontrado no localStorage");
         setMessage("Falha ao encontrar seu número. Faça o login novamente");
        
       }
     }
-  }, [route]); // ← Adicionar route como dependência
+  }, [route]);
 
   const onSubmitVerify = async (data: VerifyCode) => {
-    console.log(data);
     try {
       setLoading(true);
       const resp = await fetch("/api/verify", {
@@ -51,7 +49,6 @@ export default function VerifyCodeModel() {
       setMessage(
         "Verificação bem sucedida! Estamos te redirecionando para se autenticar. Faça o login com suas credenciais cadastradas"
       );
-      console.log("Verificação bem-sucedida:", result);
      
         route.back();
     

@@ -6,6 +6,7 @@ import {
   UseFormHandleSubmit,
   UseFormRegister,
   UseFormReset,
+  UseFormSetValue,
 } from "react-hook-form";
 import { LoginProps } from "@/models/auth/types/auth-login-props-model";
 import FormRegisterSeller from "@/models/seller/types/seller-props-model";
@@ -23,6 +24,7 @@ export interface LoginViewProps {
   errorsLogin: FieldErrors<LoginProps>;
   loading: boolean;
   message: string | null;
+  setValue: UseFormSetValue<FormRegisterSeller>;
 }
 
 const LoginView = ({
@@ -36,8 +38,34 @@ const LoginView = ({
   errors,
   errorsLogin,
   message,
+  setValue,
 }: LoginViewProps) => {
   const [isLogin, setIsLogin] = useState(true);
+  function formatCNPJ(e: React.ChangeEvent<HTMLInputElement>) {
+    let value = e.target.value;
+    value = value.replace(/\D/g, "");
+    value = value.substring(0, 14);
+    value = value.replace(/^(\d{2})(\d)/, "$1.$2");
+    value = value.replace(/^(\d{2})\.(\d{3})(\d)/, "$1.$2.$3");
+    value = value.replace(/\.(\d{3})(\d)/, ".$1/$2");
+    value = value.replace(/(\d{4})(\d)/, "$1-$2");
+
+    setValue("cnpj", value);
+  }
+
+  function formatPhone(e: React.ChangeEvent<HTMLInputElement>) {
+    let value = e.target.value;
+
+    value = value.replace(/\D/g, "");
+
+    value = value.substring(0, 11);
+
+    value = value.replace(/^(\d{2})(\d)/, "($1) $2");
+    value = value.replace(/^\((\d{2})\) (\d{5})(\d)/, "($1) $2-$3");
+    value = value.replace(/(\d{5})(\d)/, "$1-$2");
+
+    setValue("celular", value);
+  }
 
   if (loading) {
     return <Loading />;
@@ -79,8 +107,6 @@ const LoginView = ({
               Cadastrar
             </button>
           </div>
-
-          {/* FORMULÁRIO DE LOGIN */}
           {isLogin && (
             <form
               onSubmit={handleSubmitLogin(onSubmitSignIn)}
@@ -182,6 +208,7 @@ const LoginView = ({
                   placeholder="00.000.000/0000-00"
                   {...register("cnpj", {
                     required: "CNPJ é obrigatório",
+                    onChange: formatCNPJ,
                   })}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 outline-none"
                 />
@@ -205,6 +232,7 @@ const LoginView = ({
                   placeholder="(11) 99999-9999"
                   {...register("celular", {
                     required: "Celular é obrigatório",
+                    onChange: formatPhone,
                   })}
                   className="w-full px-4 py-3 border-2 border-gray-200 rounded-xl focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all duration-300 outline-none"
                 />
