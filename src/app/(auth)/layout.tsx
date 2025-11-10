@@ -26,13 +26,25 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cookieToken = (await cookies()).get("auth_token");
+  if (!cookieToken) redirect("/");
   return (
-    <html lang="pt-BR">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#e2e8f0]`}
-      >
-        {children}
-      </body>
-    </html>
+    <main
+      className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#e2e8f0]`}
+    >
+      {cookieToken ? (
+        <SidebarProvider>
+          <div className="flex h-screen w-full">
+            <AppSidebar />
+            <div className="w-full">
+              <SidebarTrigger className="absolute" />
+              <main className="flex-1 overflow-auto">{children}</main>
+            </div>
+          </div>
+        </SidebarProvider>
+      ) : (
+        children
+      )}
+    </main>
   );
 }
