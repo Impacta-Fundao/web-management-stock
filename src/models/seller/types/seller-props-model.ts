@@ -1,4 +1,8 @@
-import { FieldErrors, UseFormHandleSubmit, UseFormRegister } from "react-hook-form";
+import {
+  FieldErrors,
+  UseFormHandleSubmit,
+  UseFormRegister,
+} from "react-hook-form";
 
 export interface SellerPropsModel {
   id: number | undefined;
@@ -22,4 +26,11 @@ export interface FormDataSeller {
   errors: FieldErrors<SellerPropsModel>;
 }
 
+export default interface FormRegisterSeller {
+  nome: string | undefined;
+  email: string | undefined;
+  cnpj: string | undefined;
+  celular: string;
+  senha: string | undefined;
+}
 
