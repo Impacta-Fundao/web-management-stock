@@ -37,8 +37,14 @@ export default async function handler(
     const backendData: BackendLoginResponse = await backendResponse.json();
 
     if (backendResponse.ok) {
-
-      res.setHeader('Set-Cookie', `auth_token=${backendData.access_token}; Path=/; HttpOnly; SameSite=Strict; Max-Age${24 * 60 * 60}; Secure=${process.env.NODE_ENV === 'production'}`)
+      res.setHeader(
+        "Set-Cookie",
+        `auth_token=${
+          backendData.access_token
+        }; Path=/; HttpOnly; SameSite=Strict; Max-Age${24 * 60 * 60}; Secure=${
+          process.env.NODE_ENV === "production"
+        }`
+      );
       const responseData: CustomLoginResponse = {
         seller_id: backendData.seller_id,
         message: backendData.message,
@@ -53,6 +59,6 @@ export default async function handler(
     }
   } catch (error) {
     console.error("Erro na API de auth: ", error);
-    return res.status(500).json({message: 'Erro interno no servidor'})
+    return res.status(500).json({ message: "Erro interno no servidor" });
   }
 }

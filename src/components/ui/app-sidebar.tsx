@@ -1,5 +1,5 @@
 "use client";
-import { Home, ShoppingBasket, Banknote } from "lucide-react";
+import { Home, ShoppingBasket, Banknote, User } from "lucide-react";
 
 import {
   Sidebar,
@@ -21,13 +21,18 @@ export function AppSidebar() {
     },
     {
       title: "Produtos",
-      url: "/Products",
+      url: "/Produtos",
       icon: ShoppingBasket,
     },
     {
       title: "Vendas",
       url: "/Vendas",
       icon: Banknote,
+    },
+    {
+      title: "Perfil",
+      url: "/Perfil",
+      icon: User,
     },
   ];
 
