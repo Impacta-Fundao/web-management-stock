@@ -21,7 +21,7 @@ export default function ProductsView({
   if (loading) {
     return <Loading />;
   }
-  if (!produto || produto === undefined) return <EmptyState/>
+  
   return (
     <main className="flex flex-col mx-auto py-10 h-screen">
       <DataTable columns={columns} data={produto} />
