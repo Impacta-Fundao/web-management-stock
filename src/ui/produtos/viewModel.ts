@@ -1,24 +1,24 @@
-import  {
-  SellerPropsModel,
-} from "@/models/seller/types/seller-props-model";
+import {
+  ProdutosData,
+  ProdutosFormRegister,
+} from "@/models/produtos/types/produtos-props-mpdel";
 import { useRouter } from "next/navigation";
-import { useCallback, useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
 
-export default function useSellerModel() {
-  const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(false);
+export default function useProdutosModel() {
+  const [produto, setProduto] = useState<Array<ProdutosData>>([]);
+  const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
-  const [seller, setSeller] = useState<Array<SellerPropsModel>>([]);
+  const [message, setMessage] = useState<string | null>(null);
+  const router = useRouter();
 
   useEffect(() => {
-    getSellers();
+    getProducts();
   }, []);
-
   const apiRequest = useCallback(
     async (url: string, options: RequestInit = {}) => {
-      setLoading(true);
       setError(null);
-
       try {
         const resp = await fetch(url, {
           credentials: "include",
@@ -51,21 +51,31 @@ export default function useSellerModel() {
     [router]
   );
 
-  const getSellers = useCallback(async (): Promise<SellerPropsModel[]> => {
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<ProdutosFormRegister>();
+
+  const getProducts = useCallback(async (): Promise<ProdutosData[]> => {
     try {
-      const data = await apiRequest("/api/sellers");
-      setSeller(data.data);
+      const data = await apiRequest("/api/produtos/get");
+      setProduto(data.data);
       return data.data;
     } catch (error) {
-      console.error("Erro ao carregar sellers:", error);
+      console.error("Erro ao carregar produtos: ", error);
       return [];
     }
   }, [apiRequest]);
 
   return {
     loading,
+    produto,
+    getProducts,
     error,
-    getSellers,
-    seller,
+    register,
+    handleSubmit,
+    errors,
+    message,
   };
 }

@@ -39,6 +39,8 @@ export default function useLoginModel() {
         throw new Error(`Erro ${resp.status}`);
       }
       const result = await resp.json();
+      localStorage.setItem('seller_id', result.seller_id)
+      
       return result;
     } catch (error) {
       const err = error as Error;
@@ -52,7 +54,7 @@ export default function useLoginModel() {
       setLoading(true);
       await fetchAuth(formLogin.email, formLogin.senha);
       setMessage("Autenticação bem sucedida");
-      route.push("/Seller");
+      route.push("/Produtos");
     } catch (error) {
       setMessage("Erro ao enviar o dados");
       console.error("Erro no onSubmitSignIn", error);

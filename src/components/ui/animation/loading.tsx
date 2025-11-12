@@ -13,8 +13,8 @@ import React from "react";
 const Loading = () => {
   return (
     <>
-      <div className="flex flex-col items-center pt-5">
-        <Player src={animationData} loop speed={0.6} autoplay />
+      <div className="fixed inset-0 flex items-center justify-center bg-white z-10">
+        <Player className="" src={animationData} loop speed={0.6} autoplay />
       </div>
     </>
   );
