@@ -68,7 +68,11 @@ const LoginView = ({
   }
 
   if (loading) {
-    return <Loading />;
+    return (
+      <div className="h-48 bg-[#f3f3f3]">
+        <Loading />;
+      </div>
+    );
   }
 
   return (

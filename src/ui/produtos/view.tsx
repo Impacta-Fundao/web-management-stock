@@ -1,0 +1,29 @@
+import { ProdutosData } from "@/models/produtos/types/produtos-props-mpdel";
+import { DataTable } from "./components/DataTable/dataTable";
+import { columns } from "./components/columns/columns";
+import Loading from "@/components/ui/animation/loading";
+import { Button } from "@/components/ui/button";
+
+interface ProductsViewProps {
+  loading: boolean;
+  produto: ProdutosData[];
+  getProducts: () => Promise<ProdutosData[]>;
+  error: string | null;
+}
+
+export default function ProductsView({
+  error,
+  getProducts,
+  loading,
+  produto,
+}: ProductsViewProps) {
+  if (loading) {
+    return <Loading />;
+  }
+  return (
+    <main className="flex flex-col mx-auto py-10 h-screen">
+      <DataTable columns={columns} data={produto} />
+    
+    </main>
+  );
+}

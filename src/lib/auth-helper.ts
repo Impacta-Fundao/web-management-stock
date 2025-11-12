@@ -9,7 +9,6 @@ export function getTokenFromCookies(req:NextApiRequest): string | null {
 
 export async function makeAuthenticatedRequest(req: NextApiRequest, endpoint: string, options: RequestInit = {}) {
   const token = getTokenFromCookies(req);
-  
   if (!token) {
     NextResponse.redirect('/');
     throw new Error('Não autenticado');

@@ -13,7 +13,6 @@ export default async function handler(
   if (!email || !nome || !cnpj || !celular || !senha) {
     return res.status(400).json({
       message: "Todos os campos são obrigatórios",
-      data: { email, celular, cnpj, senha, nome },
     });
   }
 
