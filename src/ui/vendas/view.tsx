@@ -1,0 +1,37 @@
+import { VendasData } from "@/models/vendas/types/vendas-props-model";
+import { columns } from "./components/columns/columns";
+import { DataTable } from "./components/dataTable/dataTable";
+import Loading from "@/components/ui/animation/loading";
+import EmptyState from "@/components/pages/empty";
+import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
+
+interface VendasPropsModel {
+  loading: boolean;
+  venda: VendasData[];
+  getVendas: () => Promise<VendasData[]>;
+}
+
+export default function VendasView({
+  getVendas,
+  loading,
+  venda,
+}: VendasPropsModel) {
+    const router = useRouter()
+  if (loading) return <Loading />;
+
+  return (
+    <main className="flex flex-col mx-auto py-10 h-screen">
+      {venda ? (
+        <DataTable columns={columns} data={venda} />
+      ) : (
+        <div>
+          <EmptyState />
+          <div className="flex justify-center">
+            <Button onClick={() => router.push("Vendas/register")} className="">Cadastrar Venda</Button>
+          </div>
+        </div>
+      )}
+    </main>
+  );
+}

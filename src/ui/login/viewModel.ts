@@ -54,7 +54,7 @@ export default function useLoginModel() {
       setLoading(true);
       await fetchAuth(formLogin.email, formLogin.senha);
       setMessage("Autenticação bem sucedida");
-      route.push("/Produtos");
+      route.push("/Home");
     } catch (error) {
       setMessage("Erro ao enviar o dados");
       console.error("Erro no onSubmitSignIn", error);

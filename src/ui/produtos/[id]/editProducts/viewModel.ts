@@ -10,6 +10,7 @@ export default function useEditProduct() {
   } = useForm<ProdutosFormRegister>();
   const [loading, setLoading] = useState<boolean>(false);
   const [message, setMessage] = useState<string | null>(null);
+  const [status, setStatus] = useState<boolean>(false)
 
 
   const createOnSubmitEdit = (
@@ -36,6 +37,7 @@ export default function useEditProduct() {
         body: JSON.stringify({imagem:String(imagem),nome:String(nome),preco:Number(preco),quantidade:Number(quantidade)}),
       });
       const data = await response.json();
+      setStatus(true)
       if (!response.ok) {
         throw new Error(`Error - ${data.message || response.status} `);
       }
@@ -53,5 +55,6 @@ export default function useEditProduct() {
     message,
     editProduct,
     errors,
+    status
   };
 }

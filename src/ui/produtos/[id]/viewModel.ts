@@ -95,6 +95,7 @@ export default function usePreviewProduct(params: { id: string }) {
       return data;
     } catch (error) {
       const err = error as Error;
+      console.log(err)
       setMessage(err.message);
     } finally {
       setLoading(false);

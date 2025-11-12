@@ -344,7 +344,7 @@ export default function Previewdatas({ params }: UserPreviewView) {
                       Ativar Produto
                     </button>
                   ) : (
-                    <button onClick={inactivateProduct} className="inline-flex items-center px-3 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors">
+                    <button onClick={inactivateProduct}  className="inline-flex items-center px-3 py-2 bg-red-600 text-white text-sm font-medium rounded-lg hover:bg-red-700 transition-colors">
                      <X className="w-4"/>
                       Inativar Produtos
                     </button>
@@ -359,7 +359,7 @@ export default function Previewdatas({ params }: UserPreviewView) {
                       </AlertDialogHeader>
                       <AlertDialogFooter >
                         <AlertDialogCancel >Cancelar</AlertDialogCancel>
-                        <AlertDialogAction className="bg-red-600" onClick={deleteProduct}>Continuar</AlertDialogAction>
+                        <AlertDialogAction className="bg-red-600" disabled={data?.status} onClick={deleteProduct}>Continuar</AlertDialogAction>
                       </AlertDialogFooter>
                     </AlertDialogContent>
                   </AlertDialog>
