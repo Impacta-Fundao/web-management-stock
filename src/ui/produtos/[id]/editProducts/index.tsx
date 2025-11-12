@@ -12,6 +12,7 @@ export default function EditProdutoPage() {
     loading,
     message,
     register,
+    status
   } = useEditProduct();
 
   const params = useParams();
@@ -19,6 +20,7 @@ export default function EditProdutoPage() {
 
   return (
     <ProdutoEditForm
+    status={status}
       id={productid}
       errors={errors}
       createOnSubmitEdit={createOnSubmitEdit}

@@ -3,6 +3,7 @@ import { DataTable } from "./components/DataTable/dataTable";
 import { columns } from "./components/columns/columns";
 import Loading from "@/components/ui/animation/loading";
 import { Button } from "@/components/ui/button";
+import EmptyState from "@/components/pages/empty";
 
 interface ProductsViewProps {
   loading: boolean;
@@ -20,6 +21,7 @@ export default function ProductsView({
   if (loading) {
     return <Loading />;
   }
+  
   return (
     <main className="flex flex-col mx-auto py-10 h-screen">
       <DataTable columns={columns} data={produto} />

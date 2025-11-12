@@ -8,6 +8,7 @@ interface EditProductProps {
   editProduct: (produtoData: ProdutosFormRegister, id: string) => Promise<void>;
   errors: FieldErrors<ProdutosFormRegister>;
   id: string;
+  status: boolean;
 }
 import { Input } from "@/components/ui/input";
 import {
@@ -35,12 +36,12 @@ export default function ProdutoEditForm({
   register,
   errors,
   id,
+  status,
 }: EditProductProps) {
   const onSubmitEdit = createOnSubmitEdit(id);
   return (
     <div className="min-h-screen bg-gray-50 py-8">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-
         <div className="bg-white rounded-xl shadow-sm border border-gray-200 overflow-hidden">
           <form onSubmit={handleSubmit(onSubmitEdit)} className="p-6 space-y-8">
             <div className="space-y-6">
@@ -65,7 +66,6 @@ export default function ProdutoEditForm({
                     type="text"
                     id="nome"
                     {...register("nome", {
-                      required: "Nome do produto é obrigatório",
                       minLength: {
                         value: 2,
                         message: "Nome deve ter pelo menos 2 caracteres",
@@ -112,7 +112,6 @@ export default function ProdutoEditForm({
                       step="0.01"
                       min="0"
                       {...register("preco", {
-                        required: "Preço é obrigatório",
                         min: {
                           value: 0.01,
                           message: "Preço deve ser maior que zero",
@@ -155,7 +154,6 @@ export default function ProdutoEditForm({
                     id="quantidade"
                     min="0"
                     {...register("quantidade", {
-                      required: "Quantidade é obrigatória",
                       min: {
                         value: 0,
                         message: "Quantidade não pode ser negativa",
@@ -220,6 +218,14 @@ export default function ProdutoEditForm({
               >
                 Cancelar
               </button>
+              {status && (
+                <button
+                  type="button"
+                  className="px-6 py-3 border border-green-300 bg-green-600 text-gray-700 rounded-lg hover:bg-gray-50 transition-colors font-medium"
+                >
+                  Editado com sucesso
+                </button>
+              )}
               <button
                 type="submit"
                 className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium flex items-center justify-center"
