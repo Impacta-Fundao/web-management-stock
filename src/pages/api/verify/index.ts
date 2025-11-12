@@ -14,7 +14,7 @@ export default async function handler(
     }
 
     const backendResponse = await fetch(
-      `${process.env.API_BASE_URL}/mercados/verificar_codigo`,
+      `https://ms-getstock.onrender.com/mercados/verificar_codigo`,
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },
