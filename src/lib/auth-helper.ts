@@ -14,7 +14,7 @@ export async function makeAuthenticatedRequest(req: NextApiRequest, endpoint: st
     throw new Error('Não autenticado');
   }
 
-  const response = await fetch(`${process.env.API_BASE_URL}${endpoint}`, {
+  const response = await fetch(`https://ms-getstock.onrender.com${endpoint}`, {
     ...options,
     headers: {
       'Authorization': `Bearer ${token}`,
