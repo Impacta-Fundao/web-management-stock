@@ -1,20 +1,16 @@
-"use client";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { ProdutosData } from "@/models/produtos/types/produtos-props-mpdel";
 import { VendasData } from "@/models/vendas/types/vendas-props-model";
 import { ColumnDef } from "@tanstack/react-table";
-import { Check, MoreHorizontal, X } from "lucide-react";
-import { redirect } from "next/navigation";
+import { X } from "lucide-react";
 
-export const columns: ColumnDef<VendasData>[] = [
+// Interface para as props das colunas
+export interface ColumnsProps {
+  onInactivate: (id: string) => void;
+}
+
+export const getColumns = ({
+  onInactivate,
+}: ColumnsProps): ColumnDef<VendasData>[] => [
   {
     accessorKey: "id",
     header: "Ordem",
@@ -26,11 +22,10 @@ export const columns: ColumnDef<VendasData>[] = [
   {
     accessorKey: "preco_venda",
     header: "Preço da Venda",
-     cell: ({ row }) => {
+    cell: ({ row }) => {
       const preco = row.getValue("preco_venda") as number;
       return `R$${preco.toFixed(2)}`;
     },
-   
   },
   {
     accessorKey: "produto_id",
@@ -46,6 +41,23 @@ export const columns: ColumnDef<VendasData>[] = [
     cell: ({ row }) => {
       const preco = row.getValue("total_venda") as number;
       return `R$${preco.toFixed(2)}`;
+    },
+  },
+  { accessorKey: "status", header: "Status" },
+  {
+    id: "Inativar",
+    enableHiding: false,
+    cell: ({ row }) => {
+      return (
+        <Button
+          onClick={() => onInactivate(String(row.original.id))}
+          variant={"destructive"}
+          className="cursor-pointer"
+        >
+          <X />
+          Inativar
+        </Button>
+      );
     },
   },
 ];

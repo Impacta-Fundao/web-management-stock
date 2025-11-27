@@ -6,6 +6,7 @@ export interface VendasData {
   produto_id: number;
   quantidade: number;
   total_venda: number;
+  status: boolean
 }
 
 export interface VendasRegister {

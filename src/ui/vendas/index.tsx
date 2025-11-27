@@ -3,6 +3,6 @@ import VendasView from "./view";
 import useVendasModel from "./viewModel";
 
 export default function VendasPage() {
-  const { getVendas, loading, venda } = useVendasModel();
-  return <VendasView getVendas={getVendas} loading={loading} venda={venda} />;
+  const { getVendas, loading, venda,inactivate } = useVendasModel();
+  return <VendasView inactivate={inactivate} getVendas={getVendas} loading={loading} venda={venda} />;
 }

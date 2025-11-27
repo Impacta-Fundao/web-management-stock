@@ -1,4 +1,4 @@
-'use client'
+"use client";
 import { VendasData } from "@/models/vendas/types/vendas-props-model";
 import { useEffect, useState } from "react";
 
@@ -21,7 +21,29 @@ export default function useVendasModel() {
       console.error("Erro ao carregar Vendas", err.message);
       return [];
     } finally {
-        setLoading(false)
+      setLoading(false);
+    }
+  };
+
+  const inactivate = async (id: string) => {
+    try {
+      setLoading(true);
+      const data = await fetch(`/api/vendas/inactivate?id=${id}`, {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+      });
+      const result = await data.json();
+      if (!data.ok) {
+        throw new Error(`Erro: ${result || data.status}`);
+      }
+
+      return result;
+    } catch (error) {
+      const err = error as Error;
+      console.error("Erro ao carregar Vendas", err.message);
+      return [];
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -29,7 +51,5 @@ export default function useVendasModel() {
     getVendas();
   }, []);
 
-  return { loading, venda, getVendas };
+  return { loading, venda, getVendas, inactivate };
 }
-
-
